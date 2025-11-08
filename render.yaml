@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: keyword-nlp
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -m spacy download en_core_web_md
+    startCommand: python server.py
+    envVars:
+      - key: PORT
+        value: 8000
