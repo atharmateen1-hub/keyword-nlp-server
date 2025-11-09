@@ -3,6 +3,14 @@ import subprocess, json
 
 app = Flask(__name__)
 
+# Health check endpoint for Render / Browser test
+@app.get("/")
+def health():
+    return jsonify({
+        "status": "ok",
+        "message": "Keyword NLP server is running successfully on Render"
+    })
+
 @app.post("/analyze")
 def analyze():
     data = request.get_json()
@@ -15,7 +23,4 @@ def analyze():
     out, _ = process.communicate(json.dumps(data))
     return jsonify(json.loads(out))
 
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
+
